@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Management Assistant - powered by GPT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #4caf50;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 10px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        #chatbox {
+            height: 300px;
+            width: 100%;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+            border: 1px solid white;
+            padding: 10px;
+            background: white;
+            color: black;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 18px;
+        }
+        input {
+            width: 80%;
+        }
+        button {
+            width: 18%;
+            margin-left: 2%;
+            background: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Crop Management Assistant - powered by GPT</h1>
+        <p>समर्पित आपकी कृषि की बेहतरी के लिए</p>
+        <div id="chatbox">
+        </div>
+        <form id="chat-form">
+            <input type="text" id="question" placeholder="अपना प्रश्न टाइप करें..." required>
+            <button type="submit">Ask</button>
+        </form>
+    </div>
+    <script>
+             $(document).ready(function() {
+            $('#chat-form').on('submit', function(e) {
+                e.preventDefault();  // Prevent the form from being submitted normally
+                let question = $('#question').val();  // Get the value of the question input
+
+                // Send a POST request to the server
+                $.ajax({
+                    url: '/ask',
+                    method: 'POST',
+                    data: {
+                        question: question
+                    },
+                    success: function(data) {
+                        // This function will be called when the server responds successfully
+                        // 'data' contains the response from the server
+                        let answer = data.answer;  // Get the answer from the response
+
+                        // Add the question and answer to the chatbox
+                        $('#chatbox').append('<p>You: ' + question + '</p>');
+                        $('#chatbox').append('<p>AI: ' + answer + '</p>');
+
+                        // Clear the question input
+                        $('#question').val('');
+                    },
+                    error: function() {
+                        // This function will be called if the request fails
+                        alert('An error occurred. Please try again.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
