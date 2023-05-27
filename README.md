@@ -17,8 +17,8 @@ Here are the steps to get this project up and running on your machine:
 
 ## Usage
 Open the application on your web browser.
-Enter your question in the chat box.
-The AI will respond to your question promptly.
+Enter your question in the chat box in Hindi.
+The AI will respond to your question in Hindi promptly.
 
 ## Technologies
 Python
