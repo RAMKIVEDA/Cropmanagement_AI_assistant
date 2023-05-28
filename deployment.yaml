@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-crop-management
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ai-crop-management
+  template:
+    metadata:
+      labels:
+        app: ai-crop-management
+    spec:
+      containers:
+      - name: ai-crop-management
+        image: cropmanagement/ai_crop_management:latest
+        ports:
+        - containerPort:5000
+      imagePullSecrets:
+      - name: acr-auth
